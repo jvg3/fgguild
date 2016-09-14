@@ -1,0 +1,6 @@
+.table-view
+    %h2 FATGIRLZ
+    .table-wrap
+        = render partial: "guild_table"
+    = render partial: "new_member_form"
+    = link_to "REFRESH", members_path(), remote: true
