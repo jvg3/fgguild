@@ -1,5 +1,5 @@
 =form_for @new_member, remote: true do |f|
-    = f.text_field :name
+    = f.text_field :name, {placeholder: "Name..."}
     = f.select :role, options_for_select(["Tank", "Healer", "RDPS", "MDPS"])
     = f.submit
 
