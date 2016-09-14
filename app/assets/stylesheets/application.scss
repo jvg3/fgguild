@@ -80,5 +80,29 @@ html, body {
 }
 
 
+@font-face {
+    font-family: OpenSans;
+    src: font_url("OpenSans-Light.ttf");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: font_url("OpenSans-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: font_url("OpenSans-Semibold.ttf");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: font_url("OpenSans-Bold.ttf");
+    font-weight: 700;
+}
+
 
 
