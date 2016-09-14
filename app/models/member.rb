@@ -16,7 +16,9 @@ class Member < ActiveRecord::Base
     response = HTTParty.get(url)
     data = JSON.parse(response.body)
 
-    self.update(ilvl: data["items"]["averageItemLevelEquipped"], class_id: data["class"])
+    if (data["items"] && data["items"]["averageItemLevelEquipped"] && data["class"])
+      self.update(ilvl: data["items"]["averageItemLevelEquipped"], class_id: data["class"])
+    end
 
     data["items"].keys.each do |key|
 

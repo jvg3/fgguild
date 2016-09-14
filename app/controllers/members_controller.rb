@@ -52,7 +52,7 @@ class MembersController < ApplicationController
   end
 
   def set_members
-    @members = Member.all
+    @members = Member.all.order(ilvl: :desc)
   end
 
   def member_params
