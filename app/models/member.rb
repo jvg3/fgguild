@@ -12,8 +12,9 @@ class Member < ActiveRecord::Base
 
   def pull_data
 
-    url = "https://us.api.battle.net/wow/character/kelthuzad/#{name}?fields=items&locale=en_US&apikey=ehffa4esdm42e6uqj6u7zxtae3v6qp3b"
-    response = HTTParty.get(url)
+    uri = Addressable::URI.parse("https://us.api.battle.net/wow/character/kelthuzad/#{name}?fields=items&locale=en_US&apikey=ehffa4esdm42e6uqj6u7zxtae3v6qp3b")
+    uri.normalize
+    response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
 
     if (data["items"] && data["items"]["averageItemLevelEquipped"] && data["class"])
