@@ -16,7 +16,7 @@ class Member < ActiveRecord::Base
     response = HTTParty.get(url)
     data = JSON.parse(response.body)
 
-    self.update(ilvl: data["items"]["averageItemLevelEquipped"])
+    self.update(ilvl: data["items"]["averageItemLevelEquipped"], class_id: data["class"])
 
     data["items"].keys.each do |key|
 

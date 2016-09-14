@@ -9,7 +9,7 @@
     -@members.each do |member|
         -items = member.items.map{ |item| [item.slot, item] }.to_h
         %tr
-            %td= member.name.capitalize
+            %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}= member.name.capitalize
             %td= member.role
             %td= member.ilvl
             -Item.slots.each do |slot|
