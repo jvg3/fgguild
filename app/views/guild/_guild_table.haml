@@ -14,9 +14,12 @@
             %td= member.ilvl
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]
-                %td
-                    -if item && item[:ilvl]
+                -if item && item[:ilvl]
+                    - color_for_ilvl = Item.color_for_ilvl(item[:ilvl])
+                    %td{style: color_for_ilvl}
                         = item[:ilvl]
+                -else
+                    %td
             %td.action-list
                 .refresh.inline
                     = link_to member_path(member.id), method: :put, remote: true do
