@@ -4,7 +4,7 @@
         %th Role
         %th ilvl
         -Item.slots.each do |slot|
-            %th= slot.to_s.upcase
+            %th= slot.to_s.capitalize
         %th
     -@members.each do |member|
         -items = member.items.map{ |item| [item.slot, item] }.to_h
