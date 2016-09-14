@@ -1,6 +1,7 @@
 %table
     %tr
         %th Name
+        %th Role
         %th ilvl
         -Item.slots.each do |slot|
             %th= slot.to_s.upcase
@@ -9,10 +10,17 @@
         -items = member.items.map{ |item| [item.slot, item] }.to_h
         %tr
             %td= member.name.capitalize
+            %td= member.role
             %td= member.ilvl
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]
                 %td
                     -if item && item[:ilvl]
                         = item[:ilvl]
-            %td= link_to "X", member_path(member.id), method: :delete, remote: true
+            %td.action-list
+                .refresh.inline
+                    = link_to member_path(member.id), method: :put, remote: true do
+                        %i.fa.fa-refresh
+                .delete.inline
+                    = link_to member_path(member.id), method: :delete, remote: true do
+                        %i.fa.fa-trash

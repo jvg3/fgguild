@@ -1,3 +1,68 @@
 // Place all the styles related to the guild controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.table-view {
+
+  margin: 100px 80px;
+
+  table {
+
+    width: 100%;
+    padding: 30px;
+    border: 1px solid #DADADA;
+
+    th {
+      font-size: 12px;
+    }
+
+    td, th {
+      padding: 10px 8px;
+      border: 1px solid #DADADA;
+    }
+
+  }
+
+  a {
+    color: #888;
+    text-decoration: none;
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  .action-list {
+    i {
+      margin: 0 5px;
+    }
+  }
+
+  .table-actions {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .refresh-all {
+      margin-left: 40px;
+      background-color: #1abc9c;
+      padding: 10px 20px;
+      border-radius: 4px;
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+.new-member-form {
+  width: 400px;
+  input[type='submit'] {
+    border: none;
+    background: none;
+    background-color: #1abc9c;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: white;
+  }
+}

@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160914013549) do
 
   create_table "members", force: :cascade do |t|
     t.string   "name"
+    t.integer  "class_id"
+    t.string   "role"
     t.integer  "ilvl"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

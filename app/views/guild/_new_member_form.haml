@@ -1,3 +1,9 @@
 =form_for @new_member, remote: true do |f|
     = f.text_field :name
+    = f.select :role, options_for_select(["Tank", "Healer", "RDPS", "MDPS"])
     = f.submit
+
+:javascript
+    $(document).ready(function() {
+        $('select').material_select();
+    });

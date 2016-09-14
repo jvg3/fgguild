@@ -2,5 +2,8 @@
     %h2 FATGIRLZ
     .table-wrap
         = render partial: "guild_table"
-    = render partial: "new_member_form"
-    = link_to "REFRESH", members_path(), remote: true
+    .table-actions
+        .new-member-form.inline
+            = render partial: "new_member_form"
+        .refresh-all.inline
+            = link_to "REFRESH ALL", members_path(), remote: true
