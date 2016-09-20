@@ -20,7 +20,7 @@
                     %td{style: color_for_ilvl}
                         .container
                             = item[:ilvl]
-                            - if item[:enchant]
+                            - if (slot == :neck || slot == :back || slot == :finger1 || slot == :finger2) && item[:enchant]
                                 .fa.fa-check-circle
                 -else
                     %td
