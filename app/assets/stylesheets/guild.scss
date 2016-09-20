@@ -19,12 +19,26 @@
       padding: 10px 8px;
       border: 1px solid #DADADA;
       text-align: center;
+      .container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+      }
+    }
+
+    .fa {
+      color: #888;
+      &.fa-check-circle {
+        margin: 0 5px;
+        color: white;
+      }
     }
 
   }
 
   a {
-    color: #888;
+    color: #333;
     text-decoration: none;
   }
 

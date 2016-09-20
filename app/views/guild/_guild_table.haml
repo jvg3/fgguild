@@ -9,7 +9,8 @@
     -@members.each do |member|
         -items = member.items.map{ |item| [item.slot, item] }.to_h
         %tr
-            %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}= member.name.capitalize
+            %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}
+                = link_to member.name.capitalize, "http://us.battle.net/wow/en/character/kelthuzad/#{member.name.capitalize}/simple", {target: "_blank" }
             %td= member.role
             %td= member.ilvl
             -Item.slots.each do |slot|
@@ -17,7 +18,10 @@
                 -if item && item[:ilvl]
                     - color_for_ilvl = Item.color_for_ilvl(item[:ilvl])
                     %td{style: color_for_ilvl}
-                        = item[:ilvl]
+                        .container
+                            = item[:ilvl]
+                            - if item[:enchant]
+                                .fa.fa-check-circle
                 -else
                     %td
             %td.action-list

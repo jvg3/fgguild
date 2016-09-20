@@ -32,7 +32,11 @@ class Member < ActiveRecord::Base
           member_id: id,
           name: item_data["name"],
           ilvl: item_data["itemLevel"],
-          slot: key
+          slot: key,
+          enchant: (item_data["tooltipParams"]["enchant"] rescue nil),
+          gem0: (item_data["tooltipParams"]["gem0"] rescue nil),
+          gem1: (item_data["tooltipParams"]["gem1"] rescue nil),
+          gem2: (item_data["tooltipParams"]["gem2"] rescue nil),
         }
 
         if existing_item
