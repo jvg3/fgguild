@@ -29,6 +29,7 @@ class Member < ActiveRecord::Base
         existing_item = Item.where(member_id: id, slot: key).first rescue nil
 
         item_params = {
+          item_id: item_data["id"],
           member_id: id,
           name: item_data["name"],
           ilvl: item_data["itemLevel"],
@@ -37,6 +38,7 @@ class Member < ActiveRecord::Base
           gem0: (item_data["tooltipParams"]["gem0"] rescue nil),
           gem1: (item_data["tooltipParams"]["gem1"] rescue nil),
           gem2: (item_data["tooltipParams"]["gem2"] rescue nil),
+          bonus: (item_data["bonusLists"].first rescue nil)
         }
 
         if existing_item

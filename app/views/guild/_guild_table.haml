@@ -1,3 +1,5 @@
+%a{href: '#', rel: "item=2828" }
+    YO
 %table
     %tr
         %th Name
@@ -19,7 +21,7 @@
                     - color_for_ilvl = Item.color_for_ilvl(item[:ilvl])
                     %td{style: color_for_ilvl}
                         .container
-                            = item[:ilvl]
+                            %a{rel: "item=#{item.item_id}&bonus=#{item.bonus}"}= item[:ilvl]
                             - if (slot == :neck || slot == :back || slot == :finger1 || slot == :finger2) && item[:enchant]
                                 .fa.fa-check-circle
                 -else

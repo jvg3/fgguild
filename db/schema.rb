@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920162651) do
+ActiveRecord::Schema.define(version: 20160920172738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160920162651) do
     t.integer  "gem0"
     t.integer  "gem1"
     t.integer  "gem2"
+    t.integer  "item_id"
+    t.integer  "bonus"
   end
 
   create_table "members", force: :cascade do |t|
