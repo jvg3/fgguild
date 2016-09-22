@@ -5,6 +5,12 @@ class MembersController < ApplicationController
   before_action :set_member, only: [:update, :destroy]
   before_action :set_members
 
+  def show
+
+    render json: Member.all.map { |m| [m.id, m.name]}.to_h.as_json
+
+  end
+
   def create
 
     @new_member = Member.new(member_params).save

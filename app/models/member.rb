@@ -52,27 +52,46 @@ class Member < ActiveRecord::Base
 
   end
 
-  def get_all_sims
-    Member.all.each do |member|
-      member.get_sims
+  def self.get_all_sims
+
+    base_url = "http://localhost:3001/"
+
+    uri = Addressable::URI.parse(base_url + "members/get_ids")
+    response = HTTParty.get(uri.normalize)
+    data = JSON.parse(response.body)
+
+    data.each do |member|
+      puts "\n\n\nMEMBER:"
+      puts member[0]
+      puts member[1]
+      Member.get_sims(member[0], member[1])
+      puts "\n\n\n"
     end
+
+    return ""
+
   end
 
 
-  def get_sims
+  def self.get_sims(id, name)
+
+    # base_url = "http://fgguild.herokuapp.com/"
 
     # "/Volumes/Simulationcraft\ v703.01/simc armory=us,kelthuzad,baseddolfin calculate_scale_factors=1 json=john.json iterations=50 report_details=0"
     value = `sh scripts/simcraft.sh #{name}`
-    file = File.read("#{name}.json")
-    data = JSON.parse(file)
+    file = File.read("#{name}.json") rescue nil
 
-    puts "\n\n\nSIM:"
-    dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
-    puts dps
-    uri = Addressable::URI.parse("http://fgguild.herokuapp.com/memebers/#{name}/update_dps?dps=")
-    HTTParty.post(uri)
+    if file
+      data = JSON.parse(file)
 
-    File.delete("#{name}.json")
+      puts "\n\n\nSIM:"
+      dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
+      puts dps
+      uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_dps?dps=#{dps}")
+      HTTParty.post(uri)
+
+      File.delete("#{name}.json")
+    end
 
   end
 
