@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
   before_action :set_member, only: [:update, :destroy]
   before_action :set_members
 
@@ -30,6 +32,16 @@ class MembersController < ApplicationController
       respond_to do |format|
         format.js{ render layout: false, file: "members/render_table", content_type: 'text/javascript' }
       end
+    end
+
+  end
+
+  def update_dps
+
+    @member = Member.find_by_name(params[:name]) rescue nil
+    if @member && params[:dps].present?
+      @member.update(dps: params[:dps])
+      render json: "ok"
     end
 
   end

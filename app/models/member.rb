@@ -13,7 +13,6 @@ class Member < ActiveRecord::Base
   def pull_data
 
     uri = Addressable::URI.parse("https://us.api.battle.net/wow/character/kelthuzad/#{name}?fields=items&locale=en_US&apikey=ehffa4esdm42e6uqj6u7zxtae3v6qp3b")
-    uri.normalize
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
 
@@ -50,6 +49,30 @@ class Member < ActiveRecord::Base
       end
 
     end
+
+  end
+
+  def get_all_sims
+    Member.all.each do |member|
+      member.get_sims
+    end
+  end
+
+
+  def get_sims
+
+    # "/Volumes/Simulationcraft\ v703.01/simc armory=us,kelthuzad,baseddolfin calculate_scale_factors=1 json=john.json iterations=50 report_details=0"
+    value = `sh scripts/simcraft.sh #{name}`
+    file = File.read("#{name}.json")
+    data = JSON.parse(file)
+
+    puts "\n\n\nSIM:"
+    dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
+    puts dps
+    uri = Addressable::URI.parse("http://fgguild.herokuapp.com/memebers/#{name}/update_dps?dps=")
+    HTTParty.post(uri)
+
+    File.delete("#{name}.json")
 
   end
 

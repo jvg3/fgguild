@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :members
 
+  post 'members/:name/update_dps' => 'members#update_dps'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
