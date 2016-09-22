@@ -44,7 +44,7 @@ class MembersController < ApplicationController
 
   def update_dps
 
-    @member = Member.find_by_name(params[:name]) rescue nil
+    @member = Member.find(params[:id]) rescue nil
     if @member && params[:dps].present?
       @member.update(dps: params[:dps])
       render json: "ok"
