@@ -15,8 +15,14 @@
             %td= member.role
             %td= member.ilvl
             %td
-                -if member.dps
-                    = "#{member.dps/1000}k"
+                - if member.dps
+                    - dps = member.dps/1000
+                    -if dps > 50
+                        = "#{dps}k"
+                    -else
+                        = "N/A"
+                - else
+                    = "N/A"
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]
                 -if item && item[:ilvl]
