@@ -1,6 +1,11 @@
 // Place all the styles related to the guild controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h2 {
+  color: #444;
+}
+
 .table-view {
 
   margin: 50px 80px;
@@ -12,6 +17,7 @@
     border: 1px solid #DADADA;
 
     th {
+      color: #555;
       font-size: 12px;
     }
 
@@ -38,7 +44,7 @@
   }
 
   a {
-    color: #333;
+    color: #444;
     text-decoration: none;
   }
 
