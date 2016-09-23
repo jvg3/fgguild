@@ -11,7 +11,7 @@
         -items = member.items.map{ |item| [item.slot, item] }.to_h
         %tr
             %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}
-                = link_to member.name.capitalize, "http://us.battle.net/wow/en/character/kelthuzad/#{member.name.capitalize}/simple", {target: "_blank" }
+                %b= link_to member.name.capitalize, "http://us.battle.net/wow/en/character/kelthuzad/#{member.name.capitalize}/simple", {target: "_blank" }
             %td{style: "color: #666;"}
                 %b= member.role
             %td{style: "color: #666;"}
