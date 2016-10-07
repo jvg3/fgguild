@@ -12,11 +12,11 @@
         %tr
             %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}
                 %b= link_to member.name.capitalize, "http://us.battle.net/wow/en/character/kelthuzad/#{member.name.capitalize}/simple", {target: "_blank" }
-            %td{style: "color: #666;"}
+            %td.light
                 %b= member.role
-            %td{style: "color: #666;"}
+            %td.light
                 %b= member.ilvl
-            %td{style: "color: #666;"}
+            %td.light
                 - if member.dps
                     - dps = member.dps/1000
                     -if dps > 50

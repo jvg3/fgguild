@@ -31,6 +31,9 @@ h2 {
         align-items: center;
         justify-content: space-around;
       }
+      &.light {
+        color: #666;
+      }
     }
 
     .fa {
