@@ -25,7 +25,7 @@ class Item < ActiveRecord::Base
 
     rbg = "rgba(0, 129 , 255,"
     rbg = "rgba(198, 0 , 255," if ilvl >= 850
-    rbg = "rgba(255, 128, 0," if ilvl >= 880
+    rbg = "rgba(255, 128, 0," if ilvl >= 875
 
     # opacity = ((ilvl - 800)/35)*0.4 + 0.3
     # opacity = ((ilvl - 835)/15)*0.4 + 0.3 if ilvl >= 835
