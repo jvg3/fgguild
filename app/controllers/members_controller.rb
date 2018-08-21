@@ -9,8 +9,11 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
   end
 
-  def create
+  def ids
+    render json: Member.all.map { |m| [m.id, m.name] }.to_h.as_json
+  end
 
+  def create
     @new_member = Member.new(member_params).save
 
     respond_to do |format|
@@ -24,7 +27,7 @@ class MembersController < ApplicationController
     Member.refresh_data
 
     respond_to do |format|
-      format.js{ render layout: false, file: "members/render_table", content_type: 'text/javascript' }
+      format.js { render layout: false, file: "members/render_table", content_type: 'text/javascript' }
     end
 
   end

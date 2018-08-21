@@ -50,12 +50,12 @@ class Member < ActiveRecord::Base
   end
 
   def self.get_all_sims
+    # base_url = "http://fgguild.herokuapp.com/"
+    base_url = "http://localhost:3001/"
 
-    base_url = "http://fgguild.herokuapp.com/"
-    # base_url = "http://localhost:3001/"
-
-    uri = Addressable::URI.parse(base_url + "members/get_ids")
+    uri = Addressable::URI.parse(base_url + "members/ids.json")
     response = HTTParty.get(uri.normalize)
+
     data = JSON.parse(response.body)
 
     data.each do |member|
@@ -81,13 +81,14 @@ class Member < ActiveRecord::Base
       puts "\n\n\nSIM:"
       dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
       puts dps
+      # uri = Addressable::URI.parse("http://localhost:3001/members/#{id}/update_dps?dps=#{dps}")
       uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_dps?dps=#{dps}")
-      # HTTParty.post(uri.normalize)
+      response = HTTParty.post(uri.normalize)
     end
 
     if html_file
-      uri = Addressable::URI.parse("http://localhost:3001/members/#{id}/update_sims")
-      # uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_sims")
+      # uri = Addressable::URI.parse("http://localhost:3001/members/#{id}/update_sims")
+      uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_sims")
       response = HTTParty.post(uri.normalize, body: { sim_html: html_file })
     end
   end

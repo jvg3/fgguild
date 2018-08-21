@@ -5,11 +5,14 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'guild#show'
 
-  resources :members
+  resources :members, only: [:new, :create, :update, :destroy, :show] do
+    collection do
+      get 'ids'
+    end
+  end
 
   post 'members/:id/update_dps' => 'members#update_dps'
   post 'members/:id/update_sims' => 'members#update_sims'
-  get 'members/ids' => 'members#ids'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
