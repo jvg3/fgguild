@@ -1,1 +1,1 @@
-release: make ./simc/engine/Makefile
+release: cd simc/engine; make
