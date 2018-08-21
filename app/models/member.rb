@@ -70,21 +70,25 @@ class Member < ActiveRecord::Base
 
   def self.get_sims(id, name)
     # Member.get_sims(1, "Dolfin")
-    # ./simc armory=us,kelthuzad,dolfin calculate_scale_factors=1 json=dolfin.json iterations=400 report_details=0
+    # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=reports/Dolfin.json html=./reports/Dolfin.html iterations=400 report_details=0
     value = `sh scripts/simcraft.sh #{name}`
-    file = File.read("#{name}.json") rescue nil
+    json_file = File.read("reports/#{name}.json") rescue nil
+    html_file = File.read("reports/#{name}.html") rescue nil
 
-    if file
-      data = JSON.parse(file)
+    if json_file
+      data = JSON.parse(json_file)
 
       puts "\n\n\nSIM:"
       dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
       puts dps
       uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_dps?dps=#{dps}")
-      HTTParty.post(uri.normalize)
-      # File.delete("#{name}.json")
+      # HTTParty.post(uri.normalize)
     end
 
+    if html_file
+      uri = Addressable::URI.parse("http://localhost:3001/members/#{id}/update_sims")
+      # uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_sims")
+      response = HTTParty.post(uri.normalize, body: { sim_html: html_file })
+    end
   end
-
 end

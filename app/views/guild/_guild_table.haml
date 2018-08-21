@@ -17,7 +17,10 @@
             %td.light
                 %b= member.ilvl
             %td.light
-                = member.dps || "-"
+                -if member.dps
+                    = link_to "#{member.dps}", member_path(member.id), { target: "_blank" }
+                -else
+                    = "-"
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]
                 -if item && item[:ilvl]

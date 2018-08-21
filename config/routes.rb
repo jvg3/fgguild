@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :members
 
   post 'members/:id/update_dps' => 'members#update_dps'
+  post 'members/:id/update_sims' => 'members#update_sims'
   get 'members/ids' => 'members#ids'
 
   # Example of regular route:
