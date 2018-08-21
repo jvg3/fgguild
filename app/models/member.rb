@@ -68,14 +68,12 @@ class Member < ActiveRecord::Base
       Member.get_sims(member[0], member[1])
       puts "\n\n\n"
     end
-
-    return ""
-
   end
 
 
   def self.get_sims(id, name)
-
+    # Member.get_sims(1, "Dolfin")
+    # ./simc armory=us,kelthuzad,dolfin calculate_scale_factors=1 json=dolfin.json iterations=400 report_details=0
     value = `sh scripts/simcraft.sh #{name}`
     file = File.read("#{name}.json") rescue nil
 
@@ -86,7 +84,8 @@ class Member < ActiveRecord::Base
       dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
       puts dps
       uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_dps?dps=#{dps}")
-      HTTParty.post(uri)
+      HTTParty.post(uri.normalize)
+binding.pry
 
       # File.delete("#{name}.json")
     end

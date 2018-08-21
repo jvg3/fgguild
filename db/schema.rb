@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20160922213717) do
     t.integer  "gem2"
     t.integer  "item_id"
     t.integer  "bonus"
-    t.integer  "bonus2"
   end
 
   create_table "members", force: :cascade do |t|

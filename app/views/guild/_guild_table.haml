@@ -17,14 +17,7 @@
             %td.light
                 %b= member.ilvl
             %td.light
-                - if member.dps
-                    - dps = member.dps/1000
-                    -if dps > 50
-                        %b= "#{dps}k"
-                    -else
-                        = "-"
-                - else
-                    = "-"
+                = member.dps || "-"
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]
                 -if item && item[:ilvl]

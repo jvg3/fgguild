@@ -6,9 +6,7 @@ class MembersController < ApplicationController
   before_action :set_members
 
   def show
-
-    render json: Member.all.map { |m| [m.id, m.name]}.to_h.as_json
-
+    render json: Member.all.map { |m| [m.id, m.name] }.to_h.as_json
   end
 
   def create
@@ -47,7 +45,7 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id]) rescue nil
     if @member && params[:dps].present?
       @member.update(dps: params[:dps])
-      render json: "ok"
+      render json: {}, status: :ok
     end
 
   end
