@@ -3,15 +3,12 @@ class Member < ActiveRecord::Base
   has_many :items
 
   def self.refresh_data
-
     Member.all.each do |member|
       member.pull_data
     end
-
   end
 
   def pull_data
-
     uri = Addressable::URI.parse("https://us.api.battle.net/wow/character/kelthuzad/#{name}?fields=items&locale=en_US&apikey=ehffa4esdm42e6uqj6u7zxtae3v6qp3b")
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
@@ -85,8 +82,6 @@ class Member < ActiveRecord::Base
       puts dps
       uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_dps?dps=#{dps}")
       HTTParty.post(uri.normalize)
-binding.pry
-
       # File.delete("#{name}.json")
     end
 
