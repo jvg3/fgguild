@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'guild#show'
 
-  resources :members, only: [:new, :create, :update, :destroy, :show] do
+  resources :members, only: [:new, :create, :update, :destroy, :show, :index] do
     collection do
       get 'ids'
     end

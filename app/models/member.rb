@@ -50,8 +50,8 @@ class Member < ActiveRecord::Base
   end
 
   def self.get_all_sims
-    # base_url = "http://fgguild.herokuapp.com/"
-    base_url = "http://localhost:3001/"
+    base_url = "http://fgguild.herokuapp.com/"
+    # base_url = "http://localhost:3001/"
 
     uri = Addressable::URI.parse(base_url + "members/ids.json")
     response = HTTParty.get(uri.normalize)
