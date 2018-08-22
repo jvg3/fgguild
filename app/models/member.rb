@@ -94,9 +94,9 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def get_all_sims_cloud
+  def self.get_all_sims_cloud
     Member.all.each do |member|
-      # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=.tmp/reports/Dolfin.json html=./tmp/reports/Dolfin.html iterations=400 report_details=0
+      # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=tmp/reports/Dolfin.json html=tmp/reports/Dolfin.html iterations=400 report_details=0
       value = `sh scripts/simcraft_prod.sh #{name}`
 
       json_file = File.read("tmp/reports/#{name}.json") rescue nil
