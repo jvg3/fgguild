@@ -70,7 +70,8 @@ class Member < ActiveRecord::Base
 
   def self.get_sims(id, name)
     # Member.get_sims(1, "Dolfin")
-    # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=reports/Dolfin.json html=./reports/Dolfin.html iterations=400 report_details=0
+    # .simc_current armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=reports/Dolfin.json html=./tmp/reports/Dolfin.html iterations=400 report_details=0
+
     value = `sh scripts/simcraft.sh #{name}`
     json_file = File.read("reports/#{name}.json") rescue nil
     html_file = File.read("reports/#{name}.html") rescue nil
@@ -90,6 +91,29 @@ class Member < ActiveRecord::Base
       # uri = Addressable::URI.parse("http://localhost:3001/members/#{id}/update_sims")
       uri = Addressable::URI.parse("http://fgguild.herokuapp.com/members/#{id}/update_sims")
       response = HTTParty.post(uri.normalize, body: { sim_html: html_file })
+    end
+  end
+
+  def get_all_sims_cloud
+    Member.all.each do |member|
+      # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=.tmp/reports/Dolfin.json html=./tmp/reports/Dolfin.html iterations=400 report_details=0
+      value = `sh scripts/simcraft_prod.sh #{name}`
+
+      json_file = File.read("tmp/reports/#{name}.json") rescue nil
+      html_file = File.read("tmp/reports/#{name}.html") rescue nil
+
+      if json_file
+        data = JSON.parse(json_file)
+
+        puts "\n\n\nSIM:"
+        dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
+        puts dps
+        member.update(dps: dps)
+      end
+
+      if html_file
+        member.update(sim_results: html_file)
+      end
     end
   end
 end

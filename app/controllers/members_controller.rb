@@ -19,32 +19,26 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.js{ render layout: false, file: "members/render_table", content_type: 'text/javascript' }
     end
-
   end
 
   def index
-
     Member.refresh_data
 
     respond_to do |format|
       format.js { render layout: false, file: "members/render_table", content_type: 'text/javascript' }
     end
-
   end
 
   def update
-
     if @member
       @member.pull_data
       respond_to do |format|
         format.js{ render layout: false, file: "members/render_table", content_type: 'text/javascript' }
       end
     end
-
   end
 
   def update_dps
-
     @member = Member.find(params[:id]) rescue nil
     if @member && params[:dps].present?
       @member.update(dps: params[:dps])
@@ -62,14 +56,12 @@ class MembersController < ApplicationController
   end
 
   def destroy
-
     if @member
       @member.destroy
       respond_to do |format|
         format.js{ render layout: false, file: "members/render_table", content_type: 'text/javascript' }
       end
     end
-
   end
 
   private
