@@ -97,10 +97,10 @@ class Member < ActiveRecord::Base
   def self.get_all_sims_cloud
     Member.all.each do |member|
       # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=tmp/reports/Dolfin.json html=tmp/reports/Dolfin.html iterations=400 report_details=0
-      value = `sh scripts/simcraft_prod.sh #{name}`
+      value = `sh scripts/simcraft_prod.sh #{member.name}`
 
-      json_file = File.read("tmp/reports/#{name}.json") rescue nil
-      html_file = File.read("tmp/reports/#{name}.html") rescue nil
+      json_file = File.read("tmp/reports/#{member.name}.json") rescue nil
+      html_file = File.read("tmp/reports/#{member.name}.html") rescue nil
 
       if json_file
         data = JSON.parse(json_file)
