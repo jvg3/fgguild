@@ -17,7 +17,7 @@ class Member < ActiveRecord::Base
       self.update(ilvl: data["items"]["averageItemLevelEquipped"], class_id: data["class"])
     end
 
-    data["items"].keys.each do |key|
+    (data["items"] || {}).keys.each do |key|
 
       unless key == "averageItemLevel" || key == "averageItemLevelEquipped"
 
@@ -42,11 +42,8 @@ class Member < ActiveRecord::Base
         else
           Item.create(item_params)
         end
-
       end
-
     end
-
   end
 
   def self.get_all_sims
