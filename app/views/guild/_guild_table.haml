@@ -15,7 +15,8 @@
             %td.light
                 %b= member.role
             %td.light
-                %b= member.items.map(&:ilvl).sum / member.items.count
+                -if member.items.count > 0
+                    %b= member.items.map(&:ilvl).sum / member.items.count
             %td.light
                 - if member.dps
                     - dps = member.dps/1000

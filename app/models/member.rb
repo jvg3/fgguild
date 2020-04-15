@@ -11,15 +11,9 @@ class Member < ActiveRecord::Base
   end
 
   def pull_data
-    # uri = Addressable::URI.parse("https://us.api.battle.net/wow/character/kelthuzad/#{name}?fields=items&locale=en_US&namespace=")
     uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/dolfin/equipment?namespace=profile-us&locale=en_US&access_token=USN29wImNeOAKQOHrsf1bMTVgHVdmkuI6d")
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
-    byebug
-
-    # if (data["items"] && data["items"]["averageItemLevelEquipped"] && data["class"])
-    #   self.update(ilvl: data["items"]["averageItemLevelEquipped"], class_id: data["class"])
-    # end
 
     data["equipped_items"].each do |item|
       existing_item = Item.where(member_id: id, slot: item["slot"]["type"].downcase).first rescue nil
