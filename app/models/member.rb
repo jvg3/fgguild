@@ -3,15 +3,13 @@ class Member < ActiveRecord::Base
   has_many :items
 
   def self.refresh_data
-
     Member.all.each do |member|
       member.pull_data
     end
-
   end
 
   def pull_data
-    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/dolfin/equipment?namespace=profile-us&locale=en_US&access_token=USN29wImNeOAKQOHrsf1bMTVgHVdmkuI6d")
+    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/#{self.name}/equipment?namespace=profile-us&locale=en_US&access_token=USN29wImNeOAKQOHrsf1bMTVgHVdmkuI6d")
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
 
@@ -57,9 +55,7 @@ class Member < ActiveRecord::Base
     end
 
     return ""
-
   end
-
 
   def self.get_sims(id, name)
     value = `sh scripts/simcraft.sh #{name}`
@@ -76,7 +72,29 @@ class Member < ActiveRecord::Base
 
       # File.delete("#{name}.json")
     end
+  end
 
+  def self.get_all_sims_cloud
+    Member.all.each do |member|
+      # ./simc/engine/simc armory=us,kelthuzad,Dolfin calculate_scale_factors=1 json=tmp/reports/Dolfin.json html=tmp/reports/Dolfin.html iterations=400 report_details=0
+      value = `sh scripts/simcraft_prod.sh #{member.name}`
+
+      json_file = File.read("tmp/reports/#{member.name}.json") rescue nil
+      html_file = File.read("tmp/reports/#{member.name}.html") rescue nil
+
+      if json_file
+        data = JSON.parse(json_file)
+
+        puts "\n\n\nSIM:"
+        dps = (data["sim"]["players"][0]["collected_data"]["dps"]["mean"]).to_f.to_i
+        puts dps
+        member.update(dps: dps)
+      end
+
+      if html_file
+        member.update(sim_results: html_file)
+      end
+    end
   end
 
 end
