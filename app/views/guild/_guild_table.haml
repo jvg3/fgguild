@@ -15,12 +15,15 @@
             %td.light
                 %b= member.role
             %td.light
-                %b= member.ilvl
-            %td
-                -if member.dps
-                    %u
-                        = link_to "#{member.dps}", member_path(member.id), { target: "_blank" }
-                -else
+                %b= member.items.map(&:ilvl).sum / member.items.count
+            %td.light
+                - if member.dps
+                    - dps = member.dps/1000
+                    -if dps > 50
+                        %b= "#{dps}k"
+                    -else
+                        = "-"
+                - else
                     = "-"
             -Item.slots.each do |slot|
                 -item = items[slot.to_s]

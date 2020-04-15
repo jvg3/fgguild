@@ -13,19 +13,19 @@ class Item < ActiveRecord::Base
     :waist,
     :legs,
     :feet,
-    :finger1,
-    :finger2,
-    :trinket1,
-    :trinket2,
-    :mainHand,
-    :offHand]
+    :finger_1,
+    :finger_2,
+    :trinket_1,
+    :trinket_2,
+    :main_hand,
+    :off_hand]
   end
 
   def self.color_for_ilvl(ilvl)
 
     rbg = "rgba(0, 129 , 255,"
-    rbg = "rgba(198, 0 , 255," if ilvl >= 355
-    rbg = "rgba(255, 128, 0," if ilvl >= 370
+    rbg = "rgba(198, 0 , 255," if ilvl >= 445
+    rbg = "rgba(255, 128, 0," if ilvl >= 460
 
     # opacity = ((ilvl - 800)/35)*0.4 + 0.3
     # opacity = ((ilvl - 835)/15)*0.4 + 0.3 if ilvl >= 835
