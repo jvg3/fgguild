@@ -1,4 +1,4 @@
-class AddEnchantToItem < ActiveRecord::Migration
+class AddEnchantToItem < ActiveRecord::Migration[4.2]
   def change
     add_column :items, :enchant, :integer
     add_column :items, :gem0, :integer
