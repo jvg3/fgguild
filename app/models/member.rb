@@ -14,6 +14,7 @@ class Member < ActiveRecord::Base
     data = JSON.parse(response.body)
 
     data["equipped_items"].each do |item|
+      next unless Item.slots.include?(item["slot"]["type"].downcase.to_sym)
       existing_item = Item.where(member_id: id, slot: item["slot"]["type"].downcase).first rescue nil
 
       item_params = {

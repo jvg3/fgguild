@@ -3,22 +3,24 @@ class Item < ActiveRecord::Base
   belongs_to :member
 
   def self.slots
-    [:head,
-    :neck,
-    :shoulder,
-    :back,
-    :chest,
-    :wrist,
-    :hands,
-    :waist,
-    :legs,
-    :feet,
-    :finger_1,
-    :finger_2,
-    :trinket_1,
-    :trinket_2,
-    :main_hand,
-    :off_hand]
+    [
+      :head,
+      :neck,
+      :shoulder,
+      :back,
+      :chest,
+      :wrist,
+      :hands,
+      :waist,
+      :legs,
+      :feet,
+      :finger_1,
+      :finger_2,
+      :trinket_1,
+      :trinket_2,
+      :main_hand,
+      :off_hand
+    ]
   end
 
   def self.color_for_ilvl(ilvl)
