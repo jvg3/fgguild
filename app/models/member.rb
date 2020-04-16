@@ -9,7 +9,7 @@ class Member < ActiveRecord::Base
   end
 
   def pull_data
-    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/#{self.name}/equipment?namespace=profile-us&locale=en_US&access_token=USN29wImNeOAKQOHrsf1bMTVgHVdmkuI6d")
+    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/#{self.name.downcase}/equipment?namespace=profile-us&locale=en_US&access_token=USN29wImNeOAKQOHrsf1bMTVgHVdmkuI6d")
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
 
