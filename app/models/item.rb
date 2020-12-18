@@ -24,10 +24,9 @@ class Item < ActiveRecord::Base
   end
 
   def self.color_for_ilvl(ilvl)
-
     rbg = "rgba(0, 129 , 255,"
-    rbg = "rgba(198, 0 , 255," if ilvl >= 445
-    rbg = "rgba(255, 128, 0," if ilvl >= 460
+    rbg = "rgba(198, 0 , 255," if ilvl >= 184
+    rbg = "rgba(255, 128, 0," if ilvl >= 210
 
     # opacity = ((ilvl - 800)/35)*0.4 + 0.3
     # opacity = ((ilvl - 835)/15)*0.4 + 0.3 if ilvl >= 835

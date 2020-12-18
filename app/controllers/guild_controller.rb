@@ -4,5 +4,4 @@ class GuildController < ApplicationController
     @new_member = Member.new
     @members = Member.all.order(ilvl: :desc)
   end
-
 end

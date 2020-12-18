@@ -4,12 +4,22 @@ class Member < ActiveRecord::Base
 
   def self.refresh_data
     Member.all.each do |member|
-      member.pull_data
+      member.pull_data(Member.access_token)
     end
   end
 
-  def pull_data
-    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/#{self.name.downcase}/equipment?namespace=profile-us&locale=en_US&access_token=US6m6nM7ZYuL3NRzx6ieqYtCBGeLM3ds6V")
+  def self.access_token
+    auth_url = 'https://us.battle.net/oauth/token?grant_type=client_credentials'
+    auth_res = HTTParty.get(auth_url, basic_auth: {
+      username: ENV['BNET_ID'],
+      password: ENV['BNET_KEY']
+    })
+    JSON.parse(auth_res.body)['access_token']
+  end
+
+  def pull_data(access_token=nil)
+    access_token ||= Member.access_token
+    uri = Addressable::URI.parse("https://us.api.blizzard.com/profile/wow/character/kelthuzad/#{self.name.downcase}/equipment?namespace=profile-us&locale=en_US&access_token=#{access_token}")
     response = HTTParty.get(uri.normalize)
     data = JSON.parse(response.body)
 
