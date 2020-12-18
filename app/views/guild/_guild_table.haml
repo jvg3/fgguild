@@ -11,7 +11,7 @@
         -items = member.items.map{ |item| [item.slot, item] }.to_h
         %tr
             %td{class: member.class_id ? "class-color-#{member.class_id}" : ""}
-                %b= link_to member.name.capitalize, "http://us.battle.net/wow/en/character/kelthuzad/#{member.name.capitalize}/simple", {target: "_blank" }
+                %b= link_to member.name.capitalize, "https://worldofwarcraft.com/en-us/character/us/kelthuzad/#{member.name.capitalize}", {target: "_blank" }
             %td.light
                 %b= member.role
             %td.light
@@ -44,3 +44,18 @@
                 .delete.inline
                     = link_to member_path(member.id), method: :delete, remote: true do
                         %i.fa.fa-trash
+:javascript
+    $('th').click(function(){
+        var table = $(this).parents('table').eq(0)
+        var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+        this.asc = !this.asc
+        if (!this.asc){rows = rows.reverse()}
+        for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+    })
+    function comparer(index) {
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index)
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
